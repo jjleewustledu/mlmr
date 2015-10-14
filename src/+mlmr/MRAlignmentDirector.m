@@ -22,7 +22,8 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
             if (~exist('sessionPth', 'var'))
                 sessionPth = pwd; end
             cd(fullfile(sessionPth, 'fsl', ''));
-            t1_fqfn  = fullfile(sessionPth, 'fsl', 't1_default.nii.gz');
+            import mlsurfer.*;
+            t1_fqfn  = fullfile(sessionPth, 'fsl', [SurferFilesystem.T1_FILEPREFIX '.nii.gz']);
             t1_cntxt = imcast(t1_fqfn, 'mlfourd.ImagingContext');
             mad = mlmr.MRAlignmentDirector.factory( ...
                 'product',        t1_cntxt, ...
@@ -82,10 +83,11 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
             %                                                                   ^ t2-weighted anatomical registered to a 
             %                                                                     t1-weighted anatomical
             
+            import mlsurfer.*;
             refT2 = imcast(refT2, 'mlfourd.NIfTI');
             refT2 = refT2 .* mlfourd.NIfTI.load( ...
                              fullfile(fileparts(refT2.fqfilename), 'bt1_default_mask.nii.gz'));
-            refT2 = refT2.saveas('bt2_default_on_t1_default');
+            refT2 = refT2.saveas(['bt2_default_on_' SurferFilesystem.T1_FILEPREFIX]);
             refT2 = imcast(refT2, 'mlfourd.ImagingContext');
             prds  = this.alignThenApplyXfm(prds, refT2);
         end
@@ -100,10 +102,11 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
             %                                                                   ^ t2-weighted anatomical registered to a 
             %                                                                     t1-weighted anatomical
             
+            import mlsurfer.*;
             refT1 = imcast(refT1, 'mlfourd.NIfTI');
             refT1 = refT1 .* mlfourd.NIfTI.load( ...
                              fullfile(fileparts(refT1.fqfilename), 'bt1_default_mask.nii.gz'));
-            refT1 = refT1.saveas('bt1_default_on_t1_default');
+            refT1 = refT1.saveas(['bt1_default_on_' SurferFilesystem.T1_FILEPREFIX]);
             refT1 = imcast(refT1, 'mlfourd.ImagingContext');
             prds  = this.alignThenApplyXfm(prds, refT1);
         end
