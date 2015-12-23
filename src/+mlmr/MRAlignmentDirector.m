@@ -24,7 +24,7 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
             cd(fullfile(sessionPth, 'fsl', ''));
             import mlsurfer.*;
             t1_fqfn  = fullfile(sessionPth, 'fsl', [SurferFilesystem.T1_FILEPREFIX '.nii.gz']);
-            t1_cntxt = imcast(t1_fqfn, 'mlfourd.ImagingContext');
+            t1_cntxt = mlfourd.ImagingContext(t1_fqfn);
             mad = mlmr.MRAlignmentDirector.factory( ...
                 'product',        t1_cntxt, ...
                 'referenceImage', t1_cntxt);
@@ -32,7 +32,7 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
         end
         function img = ensureBetted(img)
             if (~mlfsl.BrainExtractionVisitor.isbetted(img))
-                mab = mlmr.MRAlignmentBuilder('product', imcast(img, 'mlfourd.ImagingContext'));
+                mab = mlmr.MRAlignmentBuilder('product', mlfourd.ImagingContext(img));
                 mab = mab.buildBetted;
                 img = mab.product;
             end
@@ -41,9 +41,10 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
     
 	methods 
         function prds = alignDiffusion(this, dwi, adc, t2)
-            dwi = imcast(dwi, 'mlfourd.ImagingContext');
-            adc = imcast(adc, 'mlfourd.ImagingContext');
-            t2  = imcast(t2,  'mlfourd.ImagingContext');
+            import mlfourd.*;
+            dwi = ImagingContext(dwi);
+            adc = ImagingContext(adc);
+            t2  = ImagingContext(t2);
             dwi = this.meanvol(dwi);
             dwi.save;
            
@@ -88,7 +89,7 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
             refT2 = refT2 .* mlfourd.NIfTI.load( ...
                              fullfile(fileparts(refT2.fqfilename), 'bt1_default_mask.nii.gz'));
             refT2 = refT2.saveas(['bt2_default_on_' SurferFilesystem.T1_FILEPREFIX]);
-            refT2 = imcast(refT2, 'mlfourd.ImagingContext');
+            refT2 = mlfourd.ImagingContext(refT2);
             prds  = this.alignThenApplyXfm(prds, refT2);
         end
         function prds = alignT2starOnT1(this, prds, refT1)
@@ -107,7 +108,7 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
             refT1 = refT1 .* mlfourd.NIfTI.load( ...
                              fullfile(fileparts(refT1.fqfilename), 'bt1_default_mask.nii.gz'));
             refT1 = refT1.saveas(['bt1_default_on_' SurferFilesystem.T1_FILEPREFIX]);
-            refT1 = imcast(refT1, 'mlfourd.ImagingContext');
+            refT1 = mlfourd.ImagingContext(refT1);
             prds  = this.alignThenApplyXfm(prds, refT1);
         end
         

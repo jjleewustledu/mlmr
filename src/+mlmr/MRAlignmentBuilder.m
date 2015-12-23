@@ -11,10 +11,6 @@ classdef MRAlignmentBuilder < mlfsl.AlignmentBuilderPrototype
  	%  $Id$ 
     
 	methods 
-        function this = buildUnpacked(this)
-            vtor = mlunpacking.UnpackingVisitor;
-            this = vtor.visitMRAlignmentBuilder(this);
-        end
         function this = buildBetted(this)
             vtor = mlfsl.BrainExtractionVisitor;
             this = vtor.visitMRAlignmentBuilder(this);
@@ -35,12 +31,12 @@ classdef MRAlignmentBuilder < mlfsl.AlignmentBuilderPrototype
             this = vtor.visitMRAlignmentBuilder(this);
         end
  		function this = buildFlirted(this)
-            vtor = mlfsl.FlirtVisitor;
-            this = vtor.visitAlignmentBuilder(this);
+            visit = mlfsl.FlirtVisitor;
+            this  = visit.align6DOF(this);
         end
  		function this = buildFlirtedSmallAngles(this)
-            vtor = mlfsl.FlirtVisitor;
-            this = vtor.visitAlignmentBuilderSmallAngles(this);
+            visit = mlfsl.FlirtVisitor;
+            this  = visit.alignSmallAngles(this);
         end
         function obj  = clone(this)
             obj = mlfsl.MRAlignmentBuilder(this);
