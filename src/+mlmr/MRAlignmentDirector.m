@@ -64,7 +64,7 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
         end
         function prd  = alignPerfusion(this, ep2d, t2)
             import mlfsl.*;            
-            ep2d = this.meanvol(this.motionCorrect(ep2d));
+            ep2d = this.meanvol(this.directMotionCorrection(ep2d));
             assert(lstrfind(imcast(ep2d, 'fileprefix'), ...
                   [FlirtVisitor.MCF_SUFFIX FlirtVisitor.MEANVOL_SUFFIX]));
             prd = this.alignT2star(ep2d, t2);
@@ -117,7 +117,7 @@ classdef MRAlignmentDirector < mlfsl.AlignmentDirectorDecorator
  			%  Usage:  this = MRAlignmentDirector([anMRAlignmentBuilder]) 
 
             this = this@mlfsl.AlignmentDirectorDecorator(varargin{:});
-            assert(isa(this.alignmentBuilder, 'mlmr.MRAlignmentBuilder'));
+            assert(isa(this.builder, 'mlmr.MRAlignmentBuilder'));
  		end 
     end     
 
