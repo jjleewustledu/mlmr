@@ -111,6 +111,11 @@ classdef MRImagingContext < mlfourd.ImagingContext
             %  @return internal image is masked.
             %  @warning mflourd:possibleMaskingError
             
+            for v = 1:length(varargin)
+                if (isa(varargin{v}, 'mlfourd.ImagingContext'))
+                    varargin{v} = varargin{v}.numericalNiftid;
+                end
+            end
             m = mlmr.MRImagingContext(this.state_.masked(varargin{:}));
         end
         function m = maskedByZ(this, varargin)
