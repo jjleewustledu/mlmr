@@ -13,10 +13,8 @@ classdef IMRData
         % accept parameter 'type', {'folder' 'path'}
         f = fourdfpLocation   (this, ~)
         f = freesurferLocation(this, ~)
-        f = freesurferObject(  this, ~)
         f = fslLocation(       this, ~)
         f = mriLocation(       this, ~)
-        f = mrObject(         this, ~)
         
         % accept parameter 'type', {'filename' 'fn' 'fqfn' 'fileprefix' 'fp' 'fqfp' 'folder' 'path' 'ext' 'imagingContext'}
         f = adc(      this, ~)
