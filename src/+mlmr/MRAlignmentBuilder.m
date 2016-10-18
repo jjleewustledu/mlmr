@@ -31,12 +31,10 @@ classdef MRAlignmentBuilder < mlfsl.AlignmentBuilderPrototype
             this = vtor.visitMRAlignmentBuilder(this);
         end
  		function this = buildFlirted(this)
-            visit = mlfsl.FlirtVisitor;
-            this  = visit.align6DOF(this);
+            this = this.buildVisitor.alignMultispectral(this);
         end
  		function this = buildFlirtedSmallAngles(this)
-            visit = mlfsl.FlirtVisitor;
-            this  = visit.alignSmallAngles(this);
+            this = this.buildVisitor.alignSmallAngles12DoF(this);
         end
         function obj  = clone(this)
             obj = mlfsl.MRAlignmentBuilder(this);

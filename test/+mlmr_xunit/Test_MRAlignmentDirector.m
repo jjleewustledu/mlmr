@@ -26,7 +26,7 @@ classdef Test_MRAlignmentDirector < mlfsl_xunit.Test_MyAlignmentDirector
             assertTrue( isa(collec, 'mlfourd.ImagingComposite'));
             prds = this.mad.alignSequentially(collec);
             assertTrue(isa(prds, 'mlfourd.ImagingContext'));
-            prds = prds.imcomponent;
+            prds = prds.composite;
             for p = 1:length(prds)
                 this.assertEntropies(this.E_sequen{p}, prds.get(p).fqfilename);
             end
@@ -37,7 +37,7 @@ classdef Test_MRAlignmentDirector < mlfsl_xunit.Test_MyAlignmentDirector
             assertTrue( isa(collec, 'mlfourd.ImagingComposite'));
             prds = this.mad.alignIndependently(collec, this.t1Cntxt);
             assertTrue(isa(prds, 'mlfourd.ImagingContext'));
-            prds = prds.imcomponent;
+            prds = prds.composite;
             for p = 1:length(prds)
                 this.assertEntropies(this.E_indep{p}, prds.get(p).fqfilename);
             end
@@ -56,8 +56,8 @@ classdef Test_MRAlignmentDirector < mlfsl_xunit.Test_MyAlignmentDirector
         end
  		function test_alignDiffusion(this)
             prds = this.mad.alignDiffusion(this.dwiCntxt, this.adcCntxt, this.t2Cntxt);
-            for p = 1:length(prds.imcomponent)
-                imcmp = prds.imcomponent{p};
+            for p = 1:length(prds.composite)
+                imcmp = prds.composite{p};
                 this.assertEntropies(this.E_diffusion{p}, imcmp.fqfilename);
             end
         end 
@@ -79,7 +79,7 @@ classdef Test_MRAlignmentDirector < mlfsl_xunit.Test_MyAlignmentDirector
     
     methods (Access = 'protected')
         function createEp2dMean(this)
-            prd = this.mad.motionCorrect(this.ep2dCntxt);
+            prd = this.mad.directMotionCorrection(this.ep2dCntxt);
             assertTrue(isa(prd, 'mlfourd.ImagingContext'));
         end
     end

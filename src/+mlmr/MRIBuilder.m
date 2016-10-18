@@ -22,17 +22,15 @@ classdef MRIBuilder < mlfsl.FlirtBuilder
         mttnii
     end
            
-    properties (Dependent)   
+    properties (Dependent)
         dcmPaths
         dcmPath
         mrPath
         mcverterPath
-    end 
-    
-    
+    end   
     
     methods (Static)
-        function bldr       = createFromDicomPath(stdPth, dcmPth)
+        function bldr = createFromDicomPath(stdPth, dcmPth)
             %% CREATESTUDYBUILDER
             %  Usage:   bldr = MRIBuilder.createStudyBuilder(dicom_path)
             %                                                      ^ complete path as string
