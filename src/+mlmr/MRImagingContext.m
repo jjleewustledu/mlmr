@@ -222,6 +222,18 @@ classdef MRImagingContext < mlfourd.ImagingContext
         function z = zeros(this, varargin)
             z = mlmr.MRImagingContext(this.state_.zeros(varargin{:}));
         end
+        function z = zoomed(this, varargin)
+            %% ZOOMED 
+            %  @param vector of zoom multipliers; zoom(i) > 1 embeds this.img in a larger img.
+            %  @return internal image is zoomed.
+            
+            for v = 1:length(varargin)
+                if (isa(varargin{v}, 'mlfourd.ImagingContext'))
+                    varargin{v} = varargin{v}.numericalNiftid;
+                end
+            end
+            z = mlmr.MRImagingContext(this.state_.zoomed(varargin{:}));
+        end
 		  
         %% CTOR
         
