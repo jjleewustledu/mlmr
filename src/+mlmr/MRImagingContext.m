@@ -217,6 +217,7 @@ classdef MRImagingContext < mlfourd.ImagingContext
             %  @return new window with a view of the imaging state
             %  @throws mlfourd:IOError
             
+            this.ensureAnyFormsSaved(varargin{:});
             this.state_.view(varargin{:});
         end
         function z = zeros(this, varargin)
