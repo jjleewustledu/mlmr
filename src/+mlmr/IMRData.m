@@ -10,13 +10,13 @@ classdef IMRData
  	
     
 	methods (Abstract)
-        % accept parameter 'type', {'folder' 'path'}
+        % accept parameter 'typ', {'folder' 'path'}
         f = fourdfpLocation   (this, ~)
         f = freesurferLocation(this, ~)
         f = fslLocation(       this, ~)
         f = mriLocation(       this, ~)
         
-        % accept parameter 'type', {'filename' 'fn' 'fqfn' 'fileprefix' 'fp' 'fqfp' 'folder' 'path' 'ext' 'imagingContext'}
+        % accept parameter 'typ', {'filename' 'fn' 'fqfn' 'fileprefix' 'fp' 'fqfp' 'folder' 'path' 'ext' 'imagingContext'}
         f = adc(      this, ~)
         f = aparcA2009sAseg(this, ~)
         f = asl(      this, ~)
