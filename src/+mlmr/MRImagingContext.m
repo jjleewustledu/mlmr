@@ -1,5 +1,5 @@
 classdef MRImagingContext < mlfourd.ImagingContext
-	%% MRIMAGINGCONTEXT
+	%% MRIMAGINGCONTEXT provides additional typeclassing for mlfourd.ImagingContext.
 
 	%  $Revision$
  	%  was created 08-Dec-2015 20:30:10
@@ -18,222 +18,74 @@ classdef MRImagingContext < mlfourd.ImagingContext
     end
     
 	methods 
-        function     add(this, varargin)
-            %% ADD
-            %  @param varargin are added to a composite imaging state
-            
-            this.state_ = this.state_.add(varargin{:});
+        function a    = atlas(this, varargin)
+            a = mlmr.MRImagingContext(atlas@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function     addLog(this, varargin)
-            %% ADDLOG
-            %  @param varargin are log entries for the imaging state
-            
-            this.state_.addLog(varargin{:});
+        function b    = binarized(this)
+            b = mlmr.MRImagingContext(binarized@mlfourd.ImagingContext(this));
         end
-        function a = atlas(this, varargin)
-            %% ATLAS
-            %  @param imaging_objects[, ...] have typeclasses supported by ImagingContext.  All alignment
-            %  operations between imaging objects must have been completed.  Time-domains will be summed.
-            %  @return a is the voxel-by-voxel weighted sum of this image and any submitted images; 
-            %  each image is weighted by its median value.
-            %  @throws MATLAB:dimagree, MATLAB:UndefinedFunction
-            
-            a = mlmr.MRImagingContext(this.state_.atlas(varargin{:}));
+        function b    = binarizeBlended(this, varargin)
+            b = mlmr.MRImagingContext(binarizeBlended@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function b = binarized(this)
-            %% BINARIZED
-            %  @return internal image is binary: values are only 0 or 1.
-            %  @warning mlfourd:possibleMaskingError
-            
-            b = mlmr.MRImagingContext(this.state_.binarized);
-        end
-        function b = blurred(this, varargin)
-            %% BLURRED
-            %  @param [fwhh_x fwhh_y fwhh_z] describes the anisotropic Gaussian blurring kernel
-            %  applied to the internally stored image
-            %  @return the blurred image
-            
-            b = mlmr.MRImagingContext(this.state_.blurred(varargin{:}));
+        function b    = blurred(this, varargin)
+            b = mlmr.MRImagingContext(blurred@mlfourd.ImagingContext(this, varargin{:}));
         end 
-        function f = char(this)
-            f = this.state_.char;
+        function f    = false(this, varargin)
+            f = mlmr.MRImagingContext(false@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function     close(this)
-            this.state_.close;
+        function g    = get(this, varargin)
+            g = mlmr.MRImagingContext(get@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function c = createIterator(this)
-            %% CREATEITERATOR
-            %  @return c is an iterator for a mlpatterns.Composite instance, if any
-            
-            c = this.state_.createIterator;
+        function m  = maskBlended(this, varargin)
+            m = mlmr.MRImagingContext(maskBlended@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function c = csize(this)
-            %% CSIZE
-            %  @return c is the size of the imaging state when it is composite
-            
-            c = this.state_.csize;
+        function m    = masked(this, varargin)
+            m = mlmr.MRImagingContext(masked@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function     disp(this)
-            disp(this.state_);
+        function m    = maskedByZ(this, varargin)
+            m = mlmr.MRImagingContext(maskedByZ@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function d = double(this)
-            d = this.state_.double;
+        function n    = nan(this, varargin)
+            n = mlmr.MRImagingContext(nan@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function f = find(this, varargin)
-            %% FIND
-            %  @param varargin are objects to find within a composite imaging state
-            %  %return f is the position within the composite of the object
-            
-            f = this.state_.find(varargin{:});
+        function n    = not(this, varargin)
+           n = mlmr.MRImagingContext(not@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function g = get(this, varargin)
-            %% GET
-            %  @param varargin are integer locations within a composite imaging state
-            %  @return g is an element of the imaging state
-            
-            g = mlmr.MRImagingContext(this.state_.get(varargin{:}));
+        function o    = ones(this, varargin)
+           o = mlmr.MRImagingContext(ones@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function tf = isempty(this)
-            %% ISEMPTY
-            %  @return tf is boolean for state emptiness
-            
-            tf = this.state_.isempty;
+        function t    = thresh(this, t)
+            t = mlmr.MRImagingContext(thresh@mlfourd.ImagingContext(this, t));
         end
-        function l = length(this)
-            %% LENGTH
-            %  @return l is the length of a composite imaging state
-            
-            l = this.state_.length;
+        function p    = threshp(this, p)
+            p = mlmr.MRImagingContext(threshp@mlfourd.ImagingContext(this, p));
         end
-        function m = masked(this, varargin)
-            %% MASKED
-            %  @param INIfTId of a mask with values [0 1], not required to be binary.
-            %  @return internal image is masked.
-            %  @warning mflourd:possibleMaskingError
-            
-            for v = 1:length(varargin)
-                if (isa(varargin{v}, 'mlfourd.ImagingContext'))
-                    varargin{v} = varargin{v}.numericalNiftid;
-                end
-            end
-            m = mlmr.MRImagingContext(this.state_.masked(varargin{:}));
+        function t    = timeContracted(this)
+            t = mlmr.MRImagingContext(timeContracted@mlfourd.ImagingContext(this));
         end
-        function m = maskedByZ(this, varargin)
-            %% MASKEDBYZ
-            %  @param rng = [low-z high-z], typically equivalent to [inferior superior];
-            %  @return internal image is cropped by rng.  
-            %  @throws MATLAB:assertion:failed for rng out of bounds.
-            
-            m = mlmr.MRImagingContext(this.state_.maskedByZ(varargin{:}));
+        function t    = timeSummed(this)
+            t = mlmr.MRImagingContext(timeSummed@mlfourd.ImagingContext(this));
         end
-        function o = ones(this, varargin)
-            o = mlmr.MRImagingContext(this.state_.ones(varargin{:}));
+        function f    = true(this, varargin)
+            f = mlmr.MRImagingContext(true@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function r = rank(this)
-            r = this.state_.rank;
+        function u    = uthresh(this, u)
+            u = mlmr.MRImagingContext(uthresh@mlfourd.ImagingContext(this, u));
         end
-        function     rm(this, varargin)
-            %% RM
-            %  @param varargin are integer locations which will be removed from the imaging state.
-            
-            this.state_ = this.state_.rm(varargin{:});
+        function p    = uthreshp(this, p)
+            p = mlmr.MRImagingContext(uthreshp@mlfourd.ImagingContext(this, p));
         end
-        function     save(this)
-            %% SAVE saves the imaging state as this.fqfilename on the filesystem.
-            
-            this.state_.save;
+        function v    = volumeContracted(this)
+            v = mlmr.MRImagingContext(volumeContracted@mlfourd.ImagingContext(this));
         end
-        function     saveas(this, filename)
-            %% SAVEAS saves the imaging state as this.fqfilename on the filesystem.
-            %  @param filename is a string that is compatible with requirements of the filesystem;
-            %  it replaces internal filename & filesystem information.
-
-            this.state_ = this.state_.saveas(filename);
+        function v    = volumeSummed(this)
+            v = mlmr.MRImagingContext(volumeSummed@mlfourd.ImagingContext(this));
         end
-        function tf = sizeEq(this, ic)
-            %% SIZEEQ 
-            %  @param ImagingContext to compare to this for size
-            %  @returns tf logical for equal size
-
-            tf = this.state_.sizeEq(ic);
+        function z    = zeros(this, varargin)
+            z = mlmr.MRImagingContext(zeros@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function tf = sizeGt(this, ic)
-            %% SIZEEQ 
-            %  @param ImagingContext to compare to this for size
-            %  @returns tf logical for > size
-
-            tf = this.state_.sizeGt(ic);
-        end
-        function tf = sizeLt(this, ic)
-            %% SIZEEQ 
-            %  @param ImagingContext to compare to this for size
-            %  @returns tf logical for < size
-
-            tf = this.state_.sizeLt(ic);
-        end
-        function t = thresh(this, t)
-            %% THRESH
-            %  @param t:  use t to threshold current image (zero anything below the number)
-            %  @returns t, the modified imaging context
-            
-            t = mlmr.MRImagingContext(this.state_.thresh(t));
-        end
-        function p = threshp(this, p)
-            %% THRESHP
-            %  @param p:  use percentage p (0-100) of ROBUST RANGE to threshold current image (zero anything below the number)
-            %  @returns p, the modified imaging context
-            
-            p = mlmr.MRImagingContext(this.state_.threshp(p));
-        end
-        function t = timeSummed(this)
-            %% TIMESUMMED integrates over imaging dimension 4. 
-            %  @return dynamic image reduced to summed volume.
-            
-            t = mlmr.MRImagingContext(this.state_.timeSummed);
-        end
-        function u = uthresh(this, u)
-            %% UTHRESH
-            %  @param t:  use t to upper-threshold current image (zero anything above the number)
-            %  @returns u, the modified imaging context
-            
-            u = mlmr.MRImagingContext(this.state_.uthresh(u));
-        end
-        function p = uthreshp(this, p)
-            %% THRESHP
-            %  @param p:  use percentage p (0-100) of ROBUST RANGE to threshold current image (zero anything below the number)
-            %  @returns p, the modified imaging context
-            
-            p = mlmr.MRImagingContext(this.state_.uthreshp(p));
-        end
-        function v = volumeSummed(this)
-            %% VOLUMESUMMED integrates over imaging dimensions 1:3. 
-            %  @return dynamic image reduced to time series.
-            
-            v = mlmr.MRImagingContext(this.state_.volumeSummed);
-        end
-        function     view(this, varargin)
-            %% VIEW
-            %  @param are additional filenames and other arguments to pass to the viewer.
-            %  @return new window with a view of the imaging state
-            %  @throws mlfourd:IOError
-            
-            this.ensureAnyFormsSaved(varargin{:});
-            this.state_.view(varargin{:});
-        end
-        function z = zeros(this, varargin)
-            z = mlmr.MRImagingContext(this.state_.zeros(varargin{:}));
-        end
-        function z = zoomed(this, varargin)
-            %% ZOOMED 
-            %  @param vector of zoom multipliers; zoom(i) > 1 embeds this.img in a larger img.
-            %  @return internal image is zoomed.
-            
-            for v = 1:length(varargin)
-                if (isa(varargin{v}, 'mlfourd.ImagingContext'))
-                    varargin{v} = varargin{v}.numericalNiftid;
-                end
-            end
-            z = mlmr.MRImagingContext(this.state_.zoomed(varargin{:}));
+        function z    = zoomed(this, varargin)
+            z = mlmr.MRImagingContext(zoomed@mlfourd.ImagingContext(this, varargin{:}));
         end
 		  
         %% CTOR
@@ -247,7 +99,7 @@ classdef MRImagingContext < mlfourd.ImagingContext
 
             this = this@mlfourd.ImagingContext(varargin{:});
  		end
-        function c = clone(this)
+        function c    = clone(this)
             %% CLONE simplifies calling the copy constructor.
             %  @return deep copy on new handle
             
