@@ -36,7 +36,7 @@ classdef MRImagingContext < mlfourd.ImagingContext
         function g    = get(this, varargin)
             g = mlmr.MRImagingContext(get@mlfourd.ImagingContext(this, varargin{:}));
         end
-        function m  = maskBlended(this, varargin)
+        function m    = maskBlended(this, varargin)
             m = mlmr.MRImagingContext(maskBlended@mlfourd.ImagingContext(this, varargin{:}));
         end
         function m    = masked(this, varargin)
