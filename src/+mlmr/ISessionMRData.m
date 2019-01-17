@@ -8,7 +8,6 @@ classdef (Abstract) ISessionMRData
  	
 	properties
  		atlVoxelSize
-        freesurfersDir
  	end
     
 	methods (Abstract)        
