@@ -18,6 +18,7 @@ classdef IMRData
         
         % accept parameter 'typ', {'filename' 'fn' 'fqfn' 'fileprefix' 'fp' 'fqfp' 'folder' 'path' 'ext' 'imagingContext'}
         f = adc(      this, ~)
+        f = aparcAseg(this, ~)
         f = aparcA2009sAseg(this, ~)
         f = asl(      this, ~)
         f = atlas(    this, ~)
