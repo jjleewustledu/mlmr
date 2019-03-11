@@ -60,6 +60,9 @@ classdef MRImagingContext < mlfourd.ImagingContext
         function p    = threshp(this, p)
             p = mlmr.MRImagingContext(threshp@mlfourd.ImagingContext(this, p));
         end
+        function t    = timeAveraged(this)
+            t = mlmr.MRImagingContext(timeAveraged@mlfourd.ImagingContext(this));
+        end
         function t    = timeContracted(this)
             t = mlmr.MRImagingContext(timeContracted@mlfourd.ImagingContext(this));
         end
